@@ -15,6 +15,8 @@ import bean.Pizza;
 import bean.Producto;
 import bean.Usuario;
 import com.mongodb.BasicDBList;
+import com.mongodb.QueryOperators;
+import javax.management.Query;
 import util.ConexionMLab;
 
 public class PedidoDAO {
@@ -282,7 +284,30 @@ public class PedidoDAO {
         return pedidos;
     }
 
-    public void actualizarEstado() {
+    public void actualizarEstado(Estado estado, int idPedido) {
+        ConexionMLab con = new ConexionMLab();
+        MongoClient mongo = con.getConexion();
+        try {
+            DB db = mongo.getDB("basededatos");
+            DBCollection coleccion = db.getCollection("pedido");
+            BasicDBObject query = new BasicDBObject();
+            BasicDBObject query1 = new BasicDBObject();
+            query1.put("$eq", idPedido);
+            query.put("id", query1);
+            DBObject dbo3 = new BasicDBObject();
+            dbo3.put("fechahora",estado.getFechahora());
+            dbo3.put("id",estado.getId());
+            dbo3.put("estado",estado.getEstado());
+            DBObject dbo4 = new BasicDBObject();
+            dbo4.put("Estado", dbo3);
+            DBObject dbo5 = new BasicDBObject();
+            dbo5.put("$set",dbo4);
 
+            coleccion.update(query,dbo5);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            mongo.close();
+        }        
     }
 }

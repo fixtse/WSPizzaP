@@ -2,6 +2,14 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/F:/Diego/Universidad/Ing.%20Softw%202/Proyecto%20curso%20planeta/webservice/ws/src/java/dao/LoginDAO.java</file>
+            <file>file:/F:/Diego/Universidad/Ing.%20Softw%202/Proyecto%20curso%20planeta/webservice/ws/src/java/dao/IngredienteDAO.java</file>
+            <file>file:/F:/Diego/Universidad/Ing.%20Softw%202/Proyecto%20curso%20planeta/webservice/ws/src/java/util/ConexionMLab.java</file>
+            <file>file:/F:/Diego/Universidad/Ing.%20Softw%202/Proyecto%20curso%20planeta/webservice/ws/src/java/algo/GenericResource.java</file>
+            <file>file:/F:/Diego/Universidad/Ing.%20Softw%202/Proyecto%20curso%20planeta/webservice/ws/src/java/dao/PedidoDAO.java</file>
+            <file>file:/F:/Diego/Universidad/Ing.%20Softw%202/Proyecto%20curso%20planeta/webservice/ws/nbproject/build-impl.xml</file>
+            <file>file:/F:/Diego/Universidad/Ing.%20Softw%202/Proyecto%20curso%20planeta/webservice/ws/src/java/algo/ApplicationConfig.java</file>
+        </group>
     </open-files>
 </project-private>

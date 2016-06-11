@@ -48,6 +48,32 @@ public class LoginDAO {
 
     }
     
+    public Integer loginTrabajador(String usuario, String password) {
+        ConexionMLab con = new ConexionMLab();
+        MongoClient mongo = con.getConexion();
+        int variable = 0;
+        try {
+            DB db = mongo.getDB("basededatos");
+            DBCollection coleccion = db.getCollection("trabajador");
+            BasicDBObject query = new BasicDBObject();
+            
+            BasicDBObject subquery = new BasicDBObject();
+            subquery.put("Usuario.usu", usuario);
+            subquery.put("Usuario.pass", password);
+            
+            DBCursor cursor = coleccion.find(subquery);
+            if (cursor.hasNext()) {
+                variable = 1;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            mongo.close();
+        }
+        return variable;
+
+    }
+    
     public Usuario buscarUsuario(String us) {
         ConexionMLab con = new ConexionMLab();
         MongoClient mongo = con.getConexion();

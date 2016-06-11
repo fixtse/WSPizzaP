@@ -5,6 +5,7 @@
  */
 package algo;
 
+import bean.Estado;
 import bean.Pedido;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -50,6 +51,16 @@ public class GenericResource {
         Gson gson = new Gson();
         return gson.toJson(dao.login(usuario, password));
     }
+    
+    @GET
+    @Path("loginTrabajador")
+    
+    public String loginTrabajador(@QueryParam("usuario") String usuario,@QueryParam("password") String password) {
+        LoginDAO dao=new LoginDAO();
+        Gson gson = new Gson();
+        return gson.toJson(dao.loginTrabajador(usuario, password));
+    }
+    
     @GET
     @Produces("application/json")
     @Path("getUsuario")
@@ -85,6 +96,14 @@ public class GenericResource {
         PedidoDAO dao=new PedidoDAO();
         Gson gson = new Gson();
         return gson.toJson(dao.buscarPedidoPorUsuario(usuario));
+        //List<Pedido> l= gson.fromJson(asd, new TypeToken<ArrayList<Pedido>>(){}.getType()); PROBAR LUEGO
+    }
+    
+    @PUT
+    @Path("actualizarEstado")
+    public void actualizarEstado(@QueryParam("estado") Estado estado,@QueryParam("id") int id){
+        PedidoDAO dao=new PedidoDAO();
+        dao.actualizarEstado(estado, id);
         //List<Pedido> l= gson.fromJson(asd, new TypeToken<ArrayList<Pedido>>(){}.getType()); PROBAR LUEGO
     }
     
