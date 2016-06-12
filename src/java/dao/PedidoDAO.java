@@ -284,9 +284,10 @@ public class PedidoDAO {
         return pedidos;
     }
 
-    public void actualizarEstado(Estado estado, int idPedido) {
+    public int actualizarEstado(Estado estado, int idPedido) {
         ConexionMLab con = new ConexionMLab();
         MongoClient mongo = con.getConexion();
+        int fields = 0;
         try {
             DB db = mongo.getDB("basededatos");
             DBCollection coleccion = db.getCollection("pedido");
@@ -303,11 +304,14 @@ public class PedidoDAO {
             DBObject dbo5 = new BasicDBObject();
             dbo5.put("$set",dbo4);
 
-            coleccion.update(query,dbo5);
+            fields = coleccion.update(query,dbo5).getN();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             mongo.close();
-        }        
+        }   
+        return fields;
+        
     }
+    
 }
