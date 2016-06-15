@@ -9,6 +9,7 @@ import com.mongodb.MongoClient;
 import java.util.ArrayList;
 import java.util.List;
 import bean.Estado;
+import bean.Info;
 import bean.Ingrediente;
 import bean.Mensaje;
 import bean.Pedido;
@@ -350,6 +351,33 @@ public class PedidoDAO {
         
     }
     
+    public List<Info> getInfo(){
+        int estado;
+        List<Info> infos = null;
+        Info info= null;
+        ConexionMLab con = new ConexionMLab();
+        MongoClient mongo = con.getConexion();
+        try {
+            DB db = mongo.getDB("basededatos");
+            DBCollection coleccion = db.getCollection("pedido");
+            DBCursor cursor = coleccion.find();
+            infos = new ArrayList<>();
+            while (cursor.hasNext()) {
+                DBObject dbo = cursor.next();
+                estado = (Integer)((DBObject)dbo.get("Estado")).get("id");
+                if ( estado == 2 || estado == 3 ){
+                    info = new Info((String)dbo.get("direccion"),(String)((DBObject)dbo.get("Usuario")).get("usu"),estado,(Integer)dbo.get("id"));
+                    infos.add(info);                    
+                }
+                
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            mongo.close();
+        }
+        return infos;
     
     
+    }
 }

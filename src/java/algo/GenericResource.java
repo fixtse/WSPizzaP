@@ -6,6 +6,7 @@
 package algo;
 
 import bean.Estado;
+import bean.Info;
 import bean.Mensaje;
 import bean.Pedido;
 import bean.Pizza;
@@ -137,6 +138,14 @@ public class GenericResource {
     public Integer actualizarEstado(@QueryParam("pedido") int idPedido){
         CocinaDAO dao=new CocinaDAO();        
         return dao.actualizarEstado(idPedido);
+    }
+    
+    @GET
+    @Produces("application/json")
+    @Path("getInfo")
+    public List<Info> getInfo(){
+        PedidoDAO dao=new PedidoDAO();      
+        return dao.getInfo();
     }
     
     
