@@ -11,7 +11,7 @@ public class Pizza {
     private int id, tipo;
     private String nombrePizza;
     private List<Ingrediente> ing;
-    private String img;
+    private String url;
     private List<Tamano> tam; //solo para pizzas definidas
     private String tamano; //solo para pizzas personalizadas
     private float precio;//solo para pizzas personalizadas
@@ -19,34 +19,11 @@ public class Pizza {
        public Pizza() {
     }
 
-    public Pizza(List<Ingrediente> ing, String tamano, float precio) {
-        this.ing = ing;
-        this.tamano = tamano;
-        this.precio = precio;
-    }
-
-    
-  public float getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(int precio) {
-        this.precio = precio;
-    }
-
-    public String getTamano() {
-        return tamano;
-    }
-
-    public void setTamano(String tamano) {
-        this.tamano = tamano;
-    }   
-
-    public Pizza(int id, String nombrePizza, List<Ingrediente> ing, List<Tamano> tam) {
-        this.id = id;
+    public Pizza(String nombrePizza, List<Ingrediente> ing, String url, String tamano) {
         this.nombrePizza = nombrePizza;
         this.ing = ing;
-        this.tam = tam;
+        this.url = url;
+        this.tamano = tamano;
     }
 
     public int getId() {
@@ -55,6 +32,14 @@ public class Pizza {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(int tipo) {
+        this.tipo = tipo;
     }
 
     public String getNombrePizza() {
@@ -73,6 +58,14 @@ public class Pizza {
         this.ing = ing;
     }
 
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
     public List<Tamano> getTam() {
         return tam;
     }
@@ -80,4 +73,25 @@ public class Pizza {
     public void setTam(List<Tamano> tam) {
         this.tam = tam;
     }
+
+    public String getTamano() {
+        return tamano;
+    }
+
+    public void setTamano(String tamano) {
+        this.tamano = tamano;
+    }
+
+    public float getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(float precio) {
+        this.precio = precio;
+    }
+
+    
+
+    
+  
 }

@@ -6,9 +6,12 @@
 package algo;
 
 import bean.Estado;
+import bean.Mensaje;
 import bean.Pedido;
+import bean.Pizza;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import dao.CocinaDAO;
 import dao.LoginDAO;
 import dao.PedidoDAO;
 import java.util.ArrayList;
@@ -77,12 +80,13 @@ public class GenericResource {
     @GET
     @Produces("application/json")
     @Path("getPedidos")
-    public String getPedidos(){
+    public List<Pedido> getPedidos(){
         PedidoDAO dao=new PedidoDAO();
-        Gson gson = new Gson();
-        return gson.toJson(dao.getPedidos());
+        //Gson gson = new Gson();
+        return dao.getPedidos();
         //List<Pedido> l= gson.fromJson("asdasdasd", new TypeToken<ArrayList<Pedido>>(){}.getType()); PROBAR LUEGO
     }
+    
     @GET
     @Produces("application/json")
     @Path("buscarPedidosPorID")
@@ -109,6 +113,31 @@ public class GenericResource {
         PedidoDAO dao=new PedidoDAO();
         Gson gson = new Gson();
         return gson.toJson(dao.actualizarEstado(idEstado, idPedido));
+    }
+    
+    @GET
+    @Produces("application/json")
+    @Path("getMensaje")
+    public List<Mensaje> getMensajes(){
+        CocinaDAO dao=new CocinaDAO();
+        return dao.getMensajes();
+    }
+    
+    @GET
+    @Produces("application/json")
+    @Path("getPizza")
+    public List<Pizza> getPizzas(@QueryParam("id")int id){
+        CocinaDAO dao=new CocinaDAO();
+        return dao.getPizza(id);
+    }
+    
+    @GET
+    @Produces("application/json")
+    @Path("Estado")
+    public Integer actualizarEstado(@QueryParam("pedido") int idPedido){
+        CocinaDAO dao=new CocinaDAO();
+        
+        return dao.actualizarEstado(idPedido);
     }
     
     

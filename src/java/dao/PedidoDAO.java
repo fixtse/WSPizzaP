@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import bean.Estado;
 import bean.Ingrediente;
+import bean.Mensaje;
 import bean.Pedido;
 import bean.Pizza;
 import bean.Producto;
@@ -348,5 +349,7 @@ public class PedidoDAO {
         return fields;
         
     }
+    
+    
     
 }
