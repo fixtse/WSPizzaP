@@ -24,6 +24,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import org.jboss.weld.context.bound.Bound;
 
 /**
  * REST Web Service
@@ -104,11 +105,10 @@ public class GenericResource {
     @GET
     @Produces("application/json")
     @Path("actualizarEstado")
-    public String actualizarEstado(@QueryParam("estado") Estado estado,@QueryParam("id") int id){
+    public String actualizarEstado(@QueryParam("estado") int idEstado, @QueryParam("pedido") int idPedido){
         PedidoDAO dao=new PedidoDAO();
         Gson gson = new Gson();
-        return gson.toJson(dao.actualizarEstado(estado, id));
-        //List<Pedido> l= gson.fromJson(asd, new TypeToken<ArrayList<Pedido>>(){}.getType()); PROBAR LUEGO
+        return gson.toJson(dao.actualizarEstado(idEstado, idPedido));
     }
     
     

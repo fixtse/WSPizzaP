@@ -16,10 +16,15 @@ import bean.Producto;
 import bean.Usuario;
 import com.mongodb.BasicDBList;
 import com.mongodb.QueryOperators;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.management.Query;
 import util.ConexionMLab;
 
 public class PedidoDAO {
+    
+    private Estado gEstado = null;
 
     public void agregarPedido(Pedido pedido) {
         ConexionMLab con = new ConexionMLab();
@@ -284,10 +289,40 @@ public class PedidoDAO {
         return pedidos;
     }
 
-    public int actualizarEstado(Estado estado, int idPedido) {
+    public Integer actualizarEstado(int idestado, int idPedido) {
         ConexionMLab con = new ConexionMLab();
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date fecha = new Date();
         MongoClient mongo = con.getConexion();
         int fields = 0;
+        gEstado = new Estado();
+        switch(idestado){
+            case 0:
+                gEstado.setId(0);
+                gEstado.setEstado("En Cola");
+                gEstado.setFechahora(df.format(fecha));
+                break;
+            case 1:
+                gEstado.setId(1);
+                gEstado.setEstado("En Proceso");
+                gEstado.setFechahora(df.format(fecha));
+                break;
+            case 2:
+                gEstado.setId(2);
+                gEstado.setEstado("Preparado");
+                gEstado.setFechahora(df.format(fecha));
+                break;
+            case 3:
+                gEstado.setId(3);
+                gEstado.setEstado("En Camino");
+                gEstado.setFechahora(df.format(fecha));
+                break;
+            case 4:
+                gEstado.setId(4);
+                gEstado.setEstado("Entregado");
+                gEstado.setFechahora(df.format(fecha));
+                break;
+        }        
         try {
             DB db = mongo.getDB("basededatos");
             DBCollection coleccion = db.getCollection("pedido");
@@ -296,9 +331,9 @@ public class PedidoDAO {
             query1.put("$eq", idPedido);
             query.put("id", query1);
             DBObject dbo3 = new BasicDBObject();
-            dbo3.put("fechahora",estado.getFechahora());
-            dbo3.put("id",estado.getId());
-            dbo3.put("estado",estado.getEstado());
+            dbo3.put("fechahora",gEstado.getFechahora());
+            dbo3.put("id",gEstado.getId());
+            dbo3.put("estado",gEstado.getEstado());
             DBObject dbo4 = new BasicDBObject();
             dbo4.put("Estado", dbo3);
             DBObject dbo5 = new BasicDBObject();
