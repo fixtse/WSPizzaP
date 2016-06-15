@@ -366,7 +366,7 @@ public class PedidoDAO {
                 DBObject dbo = cursor.next();
                 estado = (Integer)((DBObject)dbo.get("Estado")).get("id");
                 if ( estado == 2 || estado == 3 ){
-                    info = new Info((String)dbo.get("direccion"),(String)((DBObject)dbo.get("Usuario")).get("usu"),estado,(Integer)dbo.get("id"));
+                    info = new Info((String)dbo.get("direccion"),(String)dbo.get("usu"),estado,(Integer)dbo.get("id"));
                     infos.add(info);                    
                 }
                 
