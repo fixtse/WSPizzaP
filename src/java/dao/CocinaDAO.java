@@ -167,7 +167,8 @@ public class CocinaDAO {
             DBObject dbo5 = new BasicDBObject();
             dbo5.put("$set",dbo4);
 
-            //fields = coleccion.update(query,dbo5).getN();
+            //fields = 
+            coleccion.update(query,dbo5).getN();
             fields = idestado+1;
         } catch (Exception e) {
             e.printStackTrace();

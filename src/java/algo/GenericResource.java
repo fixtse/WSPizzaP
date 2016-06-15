@@ -135,8 +135,7 @@ public class GenericResource {
     @Produces("application/json")
     @Path("Estado")
     public Integer actualizarEstado(@QueryParam("pedido") int idPedido){
-        CocinaDAO dao=new CocinaDAO();
-        
+        CocinaDAO dao=new CocinaDAO();        
         return dao.actualizarEstado(idPedido);
     }
     
