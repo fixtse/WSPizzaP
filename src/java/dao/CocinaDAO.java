@@ -38,15 +38,17 @@ public class CocinaDAO {
         ConexionMLab con = new ConexionMLab();
         MongoClient mongo = con.getConexion();
         try {
-            DB db = mongo.getDB("basededatos");
-            DBCollection coleccion = db.getCollection("pedido");
+            DB db = mongo.getDB("pizzaplaneta");
+            DBCollection coleccion = db.getCollection("pedido");                     
             DBCursor cursor = coleccion.find();
             mensajes = new ArrayList<>();
             while (cursor.hasNext()) {
                 DBObject dbo = cursor.next();
-                estado = (Integer)((DBObject)dbo.get("Estado")).get("id");
-                if ( estado == 1 || estado == 0  ){
-                    mensaje = new Mensaje((String)((DBObject)dbo.get("Estado")).get("fechahora"),estado,(Integer)dbo.get("id"));
+                BasicDBList dbo1 = (BasicDBList)dbo.get("estados");
+                DBObject est = DBObject.class.cast(dbo1.get(dbo1.size()-1));                
+                estado = (Integer)est.get("id");
+                if ( estado == 2 || estado == 1  ){
+                    mensaje = new Mensaje((String)est.get("fechaHora"),estado,(Integer)dbo.get("_id"));
                     mensajes.add(mensaje);                    
                 }
                 
@@ -141,22 +143,7 @@ public class CocinaDAO {
                     gEstado.setId(2);
                     gEstado.setEstado("Preparado");
                     gEstado.setFechahora(df.format(fecha));
-                    break;
-                /*case 3:
-                    gEstado.setId(3);
-                    gEstado.setEstado("En Camino");
-                    gEstado.setFechahora(df.format(fecha));
-                    break;
-                case 4:
-                    gEstado.setId(4);
-                    gEstado.setEstado("Entregado");
-                    gEstado.setFechahora(df.format(fecha));
-                    break;
-                case 5:
-                    gEstado.setId(4);
-                    gEstado.setEstado("Entregado");
-                    gEstado.setFechahora(df.format(fecha));
-                    break;*/
+                    break;                
             }
             DBObject dbo3 = new BasicDBObject();
             dbo3.put("fechahora",gEstado.getFechahora());
@@ -177,6 +164,29 @@ public class CocinaDAO {
         }   
         return fields;
         
+    }
+    
+    public Integer login(String usuario, String password) {
+        ConexionMLab con = new ConexionMLab();
+        MongoClient mongo = con.getConexion();
+        int variable = 0;
+        try {
+            DB db = mongo.getDB("pizzaplaneta");
+            DBCollection coleccion = db.getCollection("usuario");
+            BasicDBObject query = new BasicDBObject();
+            query.put("username", usuario);
+            query.put("password", password); 
+            DBCursor cursor = coleccion.find(query);
+            if (cursor.hasNext()) {
+                variable = 1;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            mongo.close();
+        }
+        return variable;
+
     }
     
 }

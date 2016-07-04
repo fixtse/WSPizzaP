@@ -51,77 +51,20 @@ public class GenericResource {
     
     
     @GET
-    @Path("login")
-    
+    @Path("login")    
     public String login(@QueryParam("usuario") String usuario,@QueryParam("password") String password) {
-        LoginDAO dao=new LoginDAO();
+        CocinaDAO dao=new CocinaDAO();
         Gson gson = new Gson();
         return gson.toJson(dao.login(usuario, password));
     }
     
     @GET
-    @Path("loginTrabajador")
-    
-    public String loginTrabajador(@QueryParam("usuario") String usuario,@QueryParam("password") String password) {
-        LoginDAO dao=new LoginDAO();
-        Gson gson = new Gson();
-        return gson.toJson(dao.loginTrabajador(usuario, password));
-    }
-    
-    @GET
-    @Produces("application/json")
-    @Path("getUsuario")
-    public String getUsuario(@QueryParam("usuario") String usu){
-        LoginDAO dao=new LoginDAO();
-        Gson gson = new Gson();
-        return gson.toJson(dao.buscarUsuario(usu));
- 
-    }
-    
-    @GET
-    @Produces("application/json")
-    @Path("getPedidos")
-    public List<Pedido> getPedidos(){
-        PedidoDAO dao=new PedidoDAO();
-        //Gson gson = new Gson();
-        return dao.getPedidos();
-        //List<Pedido> l= gson.fromJson("asdasdasd", new TypeToken<ArrayList<Pedido>>(){}.getType()); PROBAR LUEGO
-    }
-    
-    @GET
-    @Produces("application/json")
-    @Path("buscarPedidosPorID")
-    public String buscarPedidosPorID(@QueryParam("id") int id){
-        PedidoDAO dao=new PedidoDAO();
-        Gson gson = new Gson();
-        return gson.toJson(dao.buscarPedidoPorID(id));
-        //List<Pedido> l= gson.fromJson(asd, new TypeToken<ArrayList<Pedido>>(){}.getType()); PROBAR LUEGO
-    }
-    @GET
-    @Produces("application/json")
-    @Path("buscarPedidosPorUsuario")
-    public String buscarPedidosPorUsuario(@QueryParam("usuario") String usuario){
-        PedidoDAO dao=new PedidoDAO();
-        Gson gson = new Gson();
-        return gson.toJson(dao.buscarPedidoPorUsuario(usuario));
-        //List<Pedido> l= gson.fromJson(asd, new TypeToken<ArrayList<Pedido>>(){}.getType()); PROBAR LUEGO
-    }
-    
-    @GET
-    @Produces("application/json")
-    @Path("actualizarEstado")
-    public String actualizarEstado(@QueryParam("estado") int idEstado, @QueryParam("pedido") int idPedido){
-        PedidoDAO dao=new PedidoDAO();
-        Gson gson = new Gson();
-        return gson.toJson(dao.actualizarEstado(idEstado, idPedido));
-    }
-    
-    @GET
     @Produces("application/json")
     @Path("getMensaje")
-    public List<Mensaje> getMensajes(){
+    public String getMensajes(){
         CocinaDAO dao=new CocinaDAO();
-        return dao.getMensajes();
+        Gson gson = new Gson();
+        return gson.toJson(dao.getMensajes());
     }
     
     @GET
