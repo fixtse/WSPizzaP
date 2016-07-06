@@ -13,8 +13,6 @@ import bean.Pizza;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import dao.CocinaDAO;
-import dao.LoginDAO;
-import dao.PedidoDAO;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ws.rs.core.Context;
@@ -40,7 +38,7 @@ public class GenericResource {
 
     @Context
     private UriInfo context;
-    
+    private Gson gson = new Gson();
 
     /**
      * Creates a new instance of GenericResource
@@ -62,34 +60,27 @@ public class GenericResource {
     @Produces("application/json")
     @Path("getMensaje")
     public String getMensajes(){
-        CocinaDAO dao=new CocinaDAO();
-        Gson gson = new Gson();
+        CocinaDAO dao=new CocinaDAO();        
         return gson.toJson(dao.getMensajes());
     }
     
     @GET
     @Produces("application/json")
     @Path("getPizza")
-    public List<Pizza> getPizzas(@QueryParam("id")int id){
+    public String getPizzas(@QueryParam("id")int id){
         CocinaDAO dao=new CocinaDAO();
-        return dao.getPizza(id);
+        return gson.toJson(dao.getPizza(id));
     }
     
     @GET
     @Produces("application/json")
     @Path("Estado")
-    public Integer actualizarEstado(@QueryParam("pedido") int idPedido){
+    public Integer actualizarEstado(@QueryParam("pedido") int idPedido,@QueryParam("usuario") String usuario){
         CocinaDAO dao=new CocinaDAO();        
-        return dao.actualizarEstado(idPedido);
+        return dao.actualizarEstado(idPedido,usuario);
     }
     
-    @GET
-    @Produces("application/json")
-    @Path("getInfo")
-    public List<Info> getInfo(){
-        PedidoDAO dao=new PedidoDAO();      
-        return dao.getInfo();
-    }
+    
     
     
 }
