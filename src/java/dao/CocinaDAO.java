@@ -216,7 +216,7 @@ public class CocinaDAO {
             
             DBObject dbo3 = new BasicDBObject();
             dbo3.put("id",gEstado.getId());
-            dbo3.put("fechahora",gEstado.getFechaHora());
+            dbo3.put("fechaHora",gEstado.getFechaHora());
             dbo3.put("username",gEstado.getUsername());
             DBObject dbo4 = new BasicDBObject();
             dbo4.put("estados", dbo3);
