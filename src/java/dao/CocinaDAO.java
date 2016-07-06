@@ -205,11 +205,13 @@ public class CocinaDAO {
                 gEstado.setId(2);
                 gEstado.setFechaHora(df.format(fecha));
                 gEstado.setUsername(username);
+                agregarPedidoDistribuidor(2);
                 break;
             case 3: 
                 gEstado.setId(2);
                 gEstado.setFechaHora(df.format(fecha));
                 gEstado.setUsername(username);
+                agregarPedidoDistribuidor(2);
                 break;            
         }        
         
@@ -223,7 +225,10 @@ public class CocinaDAO {
             DBObject dbo5 = new BasicDBObject();
             dbo5.put("$push",dbo4);
 
-            fields = coleccion.update(query,dbo5).getN();
+            coleccion.update(query,dbo5).getN();
+            
+            fields = idestado+1;
+            
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -235,8 +240,7 @@ public class CocinaDAO {
     
     void agregarPedidoDistribuidor(int idPedido){
         ConexionMLab con = new ConexionMLab();  
-        MongoClient mongo = con.getConexion();
-        int pedidos = 0;
+        MongoClient mongo = con.getConexion();        
         try {
             
             DB db = mongo.getDB("pizzaplaneta");
@@ -252,7 +256,7 @@ public class CocinaDAO {
             DBObject dbo5 = new BasicDBObject();
             dbo5.put("$push",dbo4);
 
-            pedidos = coleccion.update(query,dbo5).getN();
+            coleccion.update(query,dbo5).getN();
             
         } catch (Exception e) {
             e.printStackTrace();
