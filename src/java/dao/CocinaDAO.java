@@ -242,7 +242,8 @@ public class CocinaDAO {
         
     }
     
-    void agregarPedidoDistribuidor(int idPedido, String distrito){
+    public Boolean agregarPedidoDistribuidor(int idPedido, String distrito){
+        Boolean resp=false;
         ConexionMLab con = new ConexionMLab();
         MongoClient mongo = con.getConexion();
         Distritos distritos = new Distritos();
@@ -272,12 +273,14 @@ public class CocinaDAO {
             dbo5.put("$push",dbo4);
 
             coleccion.update(query,dbo5);
+            resp=true;
             
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             mongo.close();
         }
+        return resp;
     }
     
     
