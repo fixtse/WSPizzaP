@@ -204,22 +204,17 @@ public class CocinaDAO {
             case 1:
                 gEstado.setId(1);
                 gEstado.setFechaHora(fecha);
-                gEstado.setUsername(username);
+                gEstado.setUsername(username);                
                 break;
             case 2:
                 gEstado.setId(2);
                 gEstado.setFechaHora(fecha);
                 gEstado.setUsername(username);
                 agregarPedidoDistribuidor(idPedido, distrito);
-                break;
-            case 3: 
-                gEstado.setId(3);
-                gEstado.setFechaHora(fecha);
-                gEstado.setUsername(username);
-                break;            
+                break;                       
         }        
         
-            
+          if (idestado < 2) {
             DBObject dbo3 = new BasicDBObject();
             dbo3.put("id",gEstado.getId());
             dbo3.put("fechaHora",gEstado.getFechaHora());
@@ -232,6 +227,11 @@ public class CocinaDAO {
             coleccion.update(query,dbo5).getN();
             
             fields = idestado+1;
+              
+          }else{
+              fields = idestado;
+          }  
+            
             
         } catch (Exception e) {
             e.printStackTrace();
@@ -328,6 +328,33 @@ public class CocinaDAO {
         Date fechaDate = new Date(ano, mes, dia, hora, minuto, segundo);
 
         return fechaDate;
+    }
+    
+    public int obtenerEstado(int idPedido){
+        int idestado=-1;
+    
+        ConexionMLab con = new ConexionMLab();
+        MongoClient mongo = con.getConexion();        
+        
+        int fields = 0;
+        try {
+            DB db = mongo.getDB("pizzaplaneta");
+            DBCollection coleccion = db.getCollection("pedido");
+            BasicDBObject query = new BasicDBObject();
+            query.put("_id", idPedido);
+            DBCursor cursor = coleccion.find(query);           
+            
+            DBObject dbo = cursor.next();
+            BasicDBList dbo1 = (BasicDBList)dbo.get("estados");            
+            idestado=(Integer)((DBObject)(dbo1.get(dbo1.size()-1))).get("id");
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            mongo.close();
+        }
+        
+        return idestado;
     }
     
 }
